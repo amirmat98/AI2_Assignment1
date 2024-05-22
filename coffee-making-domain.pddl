@@ -395,7 +395,7 @@
                        (ENHANCER ?e) (at ?g1 ?e)
                        (MUG ?m) (has-coffee ?m) (at ?p ?m)
                        )
-    :effect (and (has-flavor ?m ?a))
+    :effect (and (has-flavor ?m ?e))
 )
 
 )
