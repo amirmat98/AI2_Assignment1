@@ -13,7 +13,7 @@
 (:types
   robot vessel substance tool - object
   water_holder beans_holder sugar_holder coffee_container - vessel  
-  cabinet closet table grinder stove - place ; locations
+  cabinet table grinder stove - place ; locations
   coffee water enhancer - substance
   sugar milk - enhancer  
   pot mug spoon - tools
@@ -46,11 +46,11 @@
 (has-sugar ?v - vessel) ; container has sugar
 (has-milk ?v - vessel) ; container has milk
 (is-open ?v - vessel) ; container is open
-(at ?p ?v) ; vessel is at place
+(at ?p - place ?v - vessel) ; vessel is at place
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; place predicates
 (cabinet ?ca - place) ; cabinet
-(closet ?cl - place) ; closet
+(is-closed ?ca - place) ; whether cabinet is closed or not
 (table ?ta - place) ; table
 (grinder ?gr - place) ; grinder
 (stove ?st - place) ; stove
@@ -83,54 +83,51 @@
 )
 
 ;;;;;;;;;;;;;Actions;;;;;;;;;;;;;;;
-; action for drawers
-(:action open-drawer
-    ;Robot arms opens drawer
-    :parameters (?l ?r)
-    :precondition (and (location ?l) (is-drawer ?l) (is-closed ?l)
-                       (robot ?r) (is-free ?r))
-    :effect (and (not (is-closed ?l)))
+; action for cabinet
+(:action open-cabinet
+    ;Robot arms opens capinet
+    :parameters (?ca - place ?g - robot)
+    :precondition (and (cabinet ?ca) (is-closed ?ca)
+                       (grip ?g) (is-free ?g))
+    :effect (and (not (is-closed ?ca)))
 )
 
-(:action close-drawer
-    ;Robot closes  drawer
-    :parameters (?l ?r)
-    :precondition (and (location ?l) (is-drawer ?l) (not (is-closed ?l))
-                       (robot ?r) (is-free ?r))
-    :effect (and (is-closed ?l))
+(:action close-cabinet
+    ;Robot arms close capinet
+    :parameters (?ca - place ?g - robot)
+    :precondition (and (cabinet ?ca) (not (is-closed ?ca))
+                       (grip ?g) (is-free ?g))
+    :effect (and (is-closed ?ca))
 )
 
 ; MOVING OBJECTS
 
-(:action take-object-up-from-drawer
-    ; Robot's arm takes object from drawer
-    :parameters (?r ?l ?c)
-    :precondition (and (robot ?r) (is-free ?r)
-                       (location ?l) (is-drawer ?l) (not (is-closed ?l))
-                       (container ?c) (at ?l ?c)
-                       )
-    :effect (and (not (is-free ?r)) (at ?r ?c) (not (at ?l ?c)))
+(:action take-object-up-from-cabinet
+    ; Robot's arm takes object from cabinet
+    :parameters (?g - robot ?ca - place ?v - vessel)
+    :precondition (and (grip ?g) (is-free ?g)
+                       (cabinet ?ca) (not (is-closed ?ca))
+                       (vessel ?v) (at ?ca ?v))
+    :effect (and (not (is-free ?g)) (at ?g ?v) (not (at ?ca ?v)))
 )
 
-(:action put-object-down-to-drawer
-    ; Robot's arm puts object to drawer
-    :parameters (?r ?l ?c)
-    :precondition (and (robot ?r) (not (is-free ?r))
-                       (location ?l) (is-drawer ?l) (not (is-closed ?l))
-                       (container ?c) (at ?r ?c) 
-                       )
-    :effect (and (is-free ?r) (not (at ?r ?c)) (at ?l ?c))
+(:action put-object-down-to-cabinet
+    ; Robot's arm put object to cabinet
+    :parameters (?g - robot ?ca - place ?v - vessel)
+    :precondition (and (grip ?g) (is-free ?g)
+                       (cabinet ?ca) (not (is-closed ?ca))
+                       (vessel ?v) (at ?g ?v))
+    :effect (and (is-free ?g) (not (at ?g ?v)) (at ?ca ?v))
 )
 
 
-(:action take-mug-up-from-drawer
-    ; Robot's arm takes object from drawer
-    :parameters (?r ?l ?m)
-    :precondition (and (robot ?r) (is-free ?r)
-                       (location ?l) (is-drawer ?l) (not (is-closed ?l))
-                       (mug ?m) (at ?l ?m)
-                       )
-    :effect (and (not (is-free ?r)) (at ?r ?m) (not (at ?l ?m)))
+(:action take-mug-up-from-cabinet
+    ; Robot's arm takes mug from cabinet
+    :parameters (?g - robot ?ca - place ?m - tool)
+    :precondition (and (grip ?g) (is-free ?g)
+                       (cabinet ?ca) (not (is-closed ?ca))
+                       (mug ?m) (at ?ca ?m))
+    :effect (and (not (is-free ?g)) (at ?g ?v) (not (at ?ca ?v)))
 )
 
 (:action put-mug-down-to-drawer
