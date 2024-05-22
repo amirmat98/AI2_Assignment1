@@ -1,77 +1,85 @@
 ;Header and description
 
-(define (domain coffe-robot)
+(define (domain cafe-robot)
 
 (:requirements 
   :strips
+  :typing  
   :negative-preconditions
 )
 
 ;;;;;;;;;;;;;;;Types;;;;;;;;;;;;;;;;;;;;
 
 (:types
-  robot - robot
-  container ingredients tools - object
-  water_jug beans_jar coffee_mug - container  
-  drawer closet table grinder stove - location
-  coffee water addonce - ingredients
-  sugar milk - addonce  
+  robot vessel substance tool - object
+  water_holder beans_holder sugar_holder coffee_container - vessel  
+  cabinet closet table grinder stove - place ; locations
+  coffee water enhancer - substance
+  sugar milk - enhancer  
   pot mug spoon - tools
+  grip - robot ; Robot's hand  
 )
 
 ;;;;;;;;;;;;;;;;Predicates;;;;;;;;;;;;;;;;;;
 
 (:predicates
-  ; predicates
-  (robot ?r) ; represents a robot
-  (container ?c) ; represents a container
-  (addonce ?a) ; represents an addonce
-  (location ?l) ; represents a location
-  (tools ?t) ; represents a tool
-  (pot ?p) ; represents a pot
-  (mug ?m) ; represents a mug
-  (spoon ?sp) ; represents a spoon
-  (drawer ?d) ; represents a drawer
-  (table ?t) ; represents a table
-  (grinder ?g) ; represents a grinder
-  (stove ?s) ; represents a stove
-  (coffee ?co) ; represents a coffee
-  (water ?w) ; represents water
-
-  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-  ; robot predicates
-  (is-free ?r) ; robot is free
-  (has-spoon ?r) ; robot has spoon
-  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-  ; container predicates
-  (is-empty ?c) ; container is empty
-  (for-water ?c) ; container is for water
-  (has-water ?c) ; container has water
-  (has-beans ?c) ; container has coffee beans
-  (has-sugar ?c) ; container has sugar
-  (has-milk ?c) ; container has milk
-  (is-open ?c) ; container is open
-  (at ?l ?c) ; container is at location
-  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-  ; location predicates
-  (is-drawer ?l) ; location is drawer
-  (is-table ?l) ; location is table
-  (is-grinder ?l) ; location is grinder
-  (is-stove ?l) ; location is stove
-  (is-closed ?l) ; location is closed
-  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-  ; coffee predicates
-  (has-flavor ?co ?a) ; coffee has flavor
-  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-  ; pot predicates
-  ;(is-empty ?p) ; pot is empty
-  (has-coffee ?p) ; pot has coffee
-  (has-filter ?p) ; pot has filter
-  (full-water ?p) ; pot has water
-  (is-screwed ?p) ; pot is screwd
-  (is-ready ?p) ; coffer is ready to serve
-  (is-distributed ?p) ; coffee is distributed
-
+; predicates
+(vessel ?v - object)
+(substance ?s - object)
+(tool ?t - object)
+(robot ?r - object)
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; robot predicates
+(grip ?g - robot)
+(is-free ?g - robot) ; grib is free
+(has-spoon ?g - robot) ; grip has spoon
+(has-top-part ?g - robot) ; grip has top part of the pot
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; vessel predicates
+(water_holder ?wh - vessel) ; water holder
+(beans_holder ?bh - vessel) ; beans holder
+(sugar_holder ?sh - vessel) ; sugar holder
+(coffee_container ?cc - vessel) ; coffee container
+(is-empty ?v - vessel) ; container is empty
+(has-water ?v - vessel) ; container has water
+(has-beans ?v - vessel) ; container has coffee beans
+(has-sugar ?v - vessel) ; container has sugar
+(has-milk ?v - vessel) ; container has milk
+(is-open ?v - vessel) ; container is open
+(at ?p ?v) ; vessel is at place
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; place predicates
+(cabinet ?ca - place) ; cabinet
+(closet ?cl - place) ; closet
+(table ?ta - place) ; table
+(grinder ?gr - place) ; grinder
+(stove ?st - place) ; stove
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; substance predicates
+(coffee ?c - substance) ; coffee
+(water ?w - substance) ; water
+(enhancer ?e - substance) ; enhancer
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; coffee predicates
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; enhancer predicates
+(sugar ?s - enhancer) ; sugar
+(milk ?m - enhancer) ; milk
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; tool predicates
+(pot ?p - tool) ; pot
+(mug ?m - tool) ; mug
+(spoon ?sp - tool) ; spoon
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; pot predicates
+(has-coffee ?p - tool) ; pot has coffee
+(has-filter ?p - tool) ; pot has filter
+(is-screwed ?p - tool) ; pot is screwd
+(is-ready ?p - tool) ; coffer is ready to serve when the water is in the pot
+(is-distributed ?p - tool) ; coffee is distributed
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; mug predicates
+(has-flavor ?m - tool) ; mug has flavor
 )
 
 ;;;;;;;;;;;;;Actions;;;;;;;;;;;;;;;
