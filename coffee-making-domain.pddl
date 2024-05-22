@@ -286,120 +286,114 @@
 
 (:action remove-filter
     ;robot removes filter from the moka pot
-    :parameters (?h1 ?h2 ?p)
-    :precondition (and (HAND ?h1) (not (is-free ?h1))
-                       (HAND ?h2) (is-free ?h2)
-                       (POT ?p) (at ?h1 ?p) (not (is-screwed ?p)) (has-filter ?p)
+    :parameters (?r ?p)
+    :precondition (and (robot ?r) (not (is-free ?r))
+                       (pot ?p) (at ?r ?p) (not (is-screwed ?p)) (has-filter ?p)
     )
     :effect (and (not (has-filter ?p)))
 )
 
 (:action put-filter-back
     ;robot puts filter to the moka pot
-    :parameters (?h1 ?h2 ?p)
-    :precondition (and (HAND ?h1) (not (is-free ?h1))
-                       (HAND ?h2) (is-free ?h2)
-                       (POT ?p) (at ?h1 ?p) (not (is-screwed ?p)) (not (has-filter ?p))
+    :parameters (?r ?p)
+    :precondition (and (robot ?r) (not (is-free ?r))
+                       (pot ?p) (at ?r ?p) (not (is-screwed ?p)) (not (has-filter ?p))
     )
     :effect (and (has-filter ?p))
 )
 
 (:action pour-water-to-the-pot
-    :parameters (?h1 ?h2 ?p ?c)
-    :precondition (and (HAND ?h1) (not (is-free ?h1))
-                       (HAND ?h2) (not (is-free ?h2))
-                       (POT ?p) (not (is-screwed ?p)) (not (has-filter ?p)) (at ?h1 ?p)
-                       (CONTAINER ?c) (for-water ?c) (has-water ?c) (at ?h2 ?c) (not (is-open ?c))
+    :parameters (?r ?p ?c)
+    :precondition (and (robot ?r) (not (is-free ?r))
+                       (pot ?p) (not (is-screwed ?p)) (not (has-filter ?p)) (at ?r ?p)
+                       (container ?c) (for-water ?c) (has-water ?c) (at ?r ?c) (not (is-open ?c))
     )
-    :effect (and (has-water ?p))
+    :effect (and (full-water ?p))
 )
 
 (:action take-spoon
     ; one hand takes spoon
-    :parameters (?h)
-    :precondition (and (HAND ?h) (is-free ?h) (not (has-spoon ?h)))
-    :effect (and (not (is-free ?h)) (has-spoon ?h))
+    :parameters (?r)
+    :precondition (and (robot ?r) (is-free ?r) (not (has-spoon ?r)))
+    :effect (and (not (is-free ?r)) (has-spoon ?r))
 )
 
 (:action put-down-spoon
     ; one hand puts spoon down
-    :parameters (?h)
-    :precondition (and (HAND ?h) (not (is-free ?h)) (has-spoon ?h))
-    :effect (and (not (has-spoon ?h)) (is-free ?h))
+    :parameters (?r)
+    :precondition (and (robot ?r) (not (is-free ?r)) (has-spoon ?r))
+    :effect (and (not (has-spoon ?r)) (is-free ?r))
 )
 
 
 ; COFFEE GRINDING
 (:action pour-beans-to-grinder
     ; pours coffee beans to the grinder, which is always open
-    :parameters (?h1 ?h2 ?l ?c)
-    :precondition (and (HAND ?h1) (not (is-free ?h1))
-                       (HAND ?h2) (not (is-free ?h2)) (has-spoon ?h2)
-                       (LOCATION ?l) (is-grinder ?l) 
-                       (CONTAINER ?c) (has-beans ?c) (at ?h1 ?c) (is-open ?c)
+    :parameters (?r ?l ?c)
+    :precondition (and (robot ?r) (not (is-free ?r)) (has-spoon ?r)
+                       (location ?l) (is-grinder ?l) 
+                       (container ?c) (has-beans ?c) (at ?r ?c) (is-open ?c)
                        )
     :effect (and (has-beans ?l))
 )
 
 (:action grind-coffee
     ; robot clicks on container to grind coffee
-    :parameters (?h ?l ?c)
-    :precondition (and (HAND ?h) (is-free ?h)
-                       (LOCATION ?l) (is-grinder ?l) (has-beans ?l)
-                       (CONTAINER ?c) (at ?l ?c) (is-empty ?c)
+    :parameters (?r ?l ?c)
+    :precondition (and (robot ?r) (is-free ?r)
+                       (location ?l) (is-grinder ?l) (has-beans ?l)
+                       (container ?c) (at ?l ?c) (is-empty ?c)
     )
     :effect (and (has-coffee ?c))
 )
 
 (:action pour-coffee-to-the-pot
-    :parameters (?h1 ?h2 ?c ?l ?p)
-    :precondition (and (HAND ?h1) (not (is-free ?h1))
-                       (HAND ?h2) (has-spoon ?h2)
-                       (CONTAINER ?c) (has-coffee ?c) (is-open ?c) (at ?h1 ?c)
-                       (LOCATION ?l) (is-table ?l)
-                       (POT ?p) (not (is-screwed ?p)) (has-filter ?p) (at ?l ?p)
+    :parameters (?r ?c ?l ?p)
+    :precondition (and (robot ?r) (not (is-free ?r))
+                       (robot ?r) (has-spoon ?r)
+                       (container ?c) (has-coffee ?c) (is-open ?c) (at ?r ?c)
+                       (location ?l) (is-table ?l)
+                       (pot ?p) (not (is-screwed ?p)) (has-filter ?p) (at ?l ?p)
     )
     :effect (and (has-coffee ?p) (not (has-coffee ?c)) (is-empty ?c))
 )
 
 (:action distribute-coffee-evenly
-    :parameters (?h1 ?h2 ?p)
-    :precondition (and (HAND ?h1) (not (is-free ?h1))
-                       (HAND ?h2) (has-spoon ?h2)
-                       (POT ?p) (not (is-screwed ?p)) (has-filter ?p) (at ?h1 ?p) (has-coffee ?p)
+    :parameters (?r ?p)
+    :precondition (and (robot ?r) (not (is-free ?r)) (has-spoon ?r)
+                       (pot ?p) (not (is-screwed ?p)) (has-filter ?p) (at ?r ?p) (has-coffee ?p)
                        )
-    :effect (and (coffee-is-distributed-evenly ?p)  )
+    :effect (and (is-distributed ?p))
 )
 
 
 (:action ignite-heat
-    :parameters (?h ?p ?l)
-    :precondition (and (HAND ?h) (is-free ?h)
-                       (LOCATION ?l) (is-stove ?l)
-                       (POT ?p) (has-water ?p) (coffee-is-distributed-evenly ?p) (is-screwed ?p) (at ?l ?p)
+    :parameters (?r ?p ?l)
+    :precondition (and (robot ?r) (is-free ?r)
+                       (location ?l) (is-stove ?l)
+                       (pot ?p) (has-water ?p) (is-distributed ?p) (is-screwed ?p) (at ?l ?p)
     )
-    :effect (and (coffee-is-ready ?p))
+    :effect (and (is-ready ?p))
 )
 
-(:action pour-fresh-specialty-to-a-cup
-    :parameters (?h ?p ?l ?c)
-    :precondition (and (HAND ?h) (not (is-free ?h))
-                       (POT ?p) (coffee-is-ready ?p) (is-screwed ?p) (at ?h ?p)
-                       (LOCATION ?l) (is-table ?l)
-                       (CUP ?c) (at ?l ?c) (is-empty ?c)
+(:action pour-fresh-specialty-to-a-mug
+    :parameters (?r ?p ?l ?m)
+    :precondition (and (robot ?r) (not (is-free ?r))
+                       (pot ?p) (is-ready ?p) (is-screwed ?p) (at ?r ?p)
+                       (location ?l) (is-table ?l)
+                       (mug ?m) (at ?l ?m) (is-empty ?m)
     )
-    :effect (and (has-coffee ?c))
+    :effect (and (has-coffee ?m))
 )
 
 (:action add-flavor-to-your-coffee
-    :parameters (?h1 ?h2 ?l ?a ?c)
-    :precondition (and (HAND ?h1) (not (is-free ?h1))
-                       (HAND ?h2) (has-spoon ?h2)
-                       (LOCATION ?l) (is-table ?l)
-                       (ADDON ?a) (at ?h1 ?a)
-                       (CUP ?c) (has-coffee ?c) (at ?l ?c)
+    :parameters (?r ?l ?a ?m)
+    :precondition (and (robot ?r) (not (is-free ?r)) (has-spoon ?r)
+                       (location ?l) (is-table ?l)
+                       (addonce ?a) (at ?r ?a)
+                       (mug ?m) (has-coffee ?m) (at ?l ?m)
                        )
-    :effect (and (has-flavor ?c ?a))
+    :effect (and (has-flavor ?m ?a))
 )
 
 )
