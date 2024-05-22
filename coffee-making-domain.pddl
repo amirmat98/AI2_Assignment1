@@ -12,8 +12,10 @@
 (:types
   robot - robot
   container ingredients tools - object
-  drawer table grinder stove - location
+  water_jug beans_jar coffee_mug - container  
+  drawer closet table grinder stove - location
   coffee water addonce - ingredients
+  sugar milk - addonce  
   pot mug spoon - tools
 )
 
