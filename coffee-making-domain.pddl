@@ -4,12 +4,13 @@
 
 (:requirements 
   :strips
+  :negative-preconditions
 )
 
 ;;;;;;;;;;;;;;;Types;;;;;;;;;;;;;;;;;;;;
 
 (:types
-  robot - robots
+  robot - robot
   container ingredients tools - object
   drawer table grinder stove - location
   coffee water addonce - ingredients
@@ -65,7 +66,7 @@
   (has-coffee ?p) ; pot has coffee
   (has-filter ?p) ; pot has filter
   (full-water ?p) ; pot has water
-  (is-screwd ?p) ; pot is screwd
+  (is-screwed ?p) ; pot is screwd
   (is-ready ?p) ; coffer is ready to serve
   (is-distributed ?p) ; coffee is distributed
 
@@ -75,7 +76,7 @@
 ; action for drawers
 (:action open-drawer
     ;Robot arms opens drawer
-    :parameters (?l ?h)
+    :parameters (?l ?r)
     :precondition (and (location ?l) (is-drawer ?l) (is-closed ?l)
                        (robot ?r) (is-free ?r))
     :effect (and (not (is-closed ?l)))
@@ -93,196 +94,192 @@
 
 (:action take-object-up-from-drawer
     ; Robot's arm takes object from drawer
-    :parameters (?h ?l ?c)
-    :precondition (and (HAND ?h) (is-free ?h)
-                       (LOCATION ?l) (is-drawer ?l) (not (is-closed ?l))
-                       (CONTAINER ?c) (at ?l ?c)
+    :parameters (?r ?l ?c)
+    :precondition (and (robot ?r) (is-free ?r)
+                       (location ?l) (is-drawer ?l) (not (is-closed ?l))
+                       (container ?c) (at ?l ?c)
                        )
-    :effect (and (not (is-free ?h)) (at ?h ?c) (not (at ?l ?c)))
+    :effect (and (not (is-free ?r)) (at ?r ?c) (not (at ?l ?c)))
 )
 
 (:action put-object-down-to-drawer
     ; Robot's arm puts object to drawer
-    :parameters (?h ?l ?c)
-    :precondition (and (HAND ?h) (not (is-free ?h))
-                       (LOCATION ?l) (is-drawer ?l) (not (is-closed ?l))
-                       (CONTAINER ?c) (at ?h ?c) 
+    :parameters (?r ?l ?c)
+    :precondition (and (robot ?r) (not (is-free ?r))
+                       (location ?l) (is-drawer ?l) (not (is-closed ?l))
+                       (container ?c) (at ?r ?c) 
                        )
-    :effect (and (is-free ?h) (not (at ?h ?c)) (at ?l ?c))
+    :effect (and (is-free ?r) (not (at ?r ?c)) (at ?l ?c))
 )
 
 
-(:action take-cup-up-from-drawer
+(:action take-mug-up-from-drawer
     ; Robot's arm takes object from drawer
-    :parameters (?h ?l ?c)
-    :precondition (and (HAND ?h) (is-free ?h)
-                       (LOCATION ?l) (is-drawer ?l) (not (is-closed ?l))
-                       (CUP ?c) (at ?l ?c)
+    :parameters (?r ?l ?m)
+    :precondition (and (robot ?r) (is-free ?r)
+                       (location ?l) (is-drawer ?l) (not (is-closed ?l))
+                       (mug ?m) (at ?l ?m)
                        )
-    :effect (and (not (is-free ?h)) (at ?h ?c) (not (at ?l ?c)))
+    :effect (and (not (is-free ?r)) (at ?r ?m) (not (at ?l ?m)))
 )
 
-(:action put-cup-down-to-drawer
+(:action put-mug-down-to-drawer
     ; Robot's arm puts object to drawer
-    :parameters (?h ?l ?c)
-    :precondition (and (HAND ?h) (not (is-free ?h))
-                       (LOCATION ?l) (is-drawer ?l) (not (is-closed ?l))
-                       (CUP ?c) (at ?h ?c) 
+    :parameters (?r ?l ?m)
+    :precondition (and (robot ?r) (not (is-free ?r))
+                       (location ?l) (is-drawer ?l) (not (is-closed ?l))
+                       (mug ?m) (at ?r ?m) 
                        )
-    :effect (and (is-free ?h) (not (at ?h ?c)) (at ?l ?c))
+    :effect (and (is-free ?r) (not (at ?r ?m)) (at ?l ?m))
 )
 
 
 (:action take-pot-up-from-drawer
     ; Robot's arm takes pot from drawer
-    :parameters (?h ?l ?p)
-    :precondition (and (HAND ?h) (is-free ?h)
-                       (LOCATION ?l) (is-drawer ?l) (not (is-closed ?l))
-                       (POT ?p) (at ?l ?p)
+    :parameters (?r ?l ?p)
+    :precondition (and (robot ?r) (is-free ?r)
+                       (location ?l) (is-drawer ?l) (not (is-closed ?l))
+                       (pot ?p) (at ?l ?p)
                        )
-    :effect (and (not (is-free ?h)) (at ?h ?p) (not (at ?l ?p)))
+    :effect (and (not (is-free ?r)) (at ?r ?p) (not (at ?l ?p)))
 )
 
 (:action put-pot-down-to-drawer
     ; Robot's arm takes pot to drawer
-    :parameters (?h ?l ?p)
-    :precondition (and (HAND ?h) (not (is-free ?h))
-                       (LOCATION ?l) (is-drawer ?l) (not (is-closed ?l))
-                       (POT ?p) (at ?h ?p) 
+    :parameters (?r ?l ?p)
+    :precondition (and (robot ?r) (not (is-free ?r))
+                       (location ?l) (is-drawer ?l) (not (is-closed ?l))
+                       (pot ?p) (at ?r ?p) 
                        )
-    :effect (and (is-free ?h) (not (at ?h ?p)) (at ?l ?p))
+    :effect (and (is-free ?r) (not (at ?r ?p)) (at ?l ?p))
 )
 
 (:action take-object-up-from
     ; Robot's arm takes object from location (not drawer)
-    :parameters (?h ?l ?c)
-    :precondition (and (HAND ?h) (is-free ?h)
-                       (LOCATION ?l) (not (is-drawer ?l))
-                       (CONTAINER ?c) (at ?l ?c)
+    :parameters (?r ?l ?c)
+    :precondition (and (robot ?r) (is-free ?r)
+                       (location ?l) (not (is-drawer ?l))
+                       (container ?c) (at ?l ?c)
                        )
-    :effect (and (not (is-free ?h)) (at ?h ?c) (not (at ?l ?c)) )
+    :effect (and (not (is-free ?r)) (at ?r ?c) (not (at ?l ?c)) )
 )
     
 (:action put-object-down-to
     ; Robot's arm puts object to location (not drawer)
-    :parameters (?h ?l ?c)
-    :precondition (and (HAND ?h) (not (is-free ?h))
-                       (LOCATION ?l) (not (is-drawer ?l)) (not (is-stove ?l))
-                       (CONTAINER ?c) (at ?h ?c)
+    :parameters (?r ?l ?c)
+    :precondition (and (robot ?r) (not (is-free ?r))
+                       (location ?l) (not (is-drawer ?l)) (not (is-stove ?l))
+                       (container ?c) (at ?r ?c)
                        )
-    :effect (and (is-free ?h) (not (at ?h ?c)) (at ?l ?c))
+    :effect (and (is-free ?r) (not (at ?r ?c)) (at ?l ?c))
 )
 
 
 (:action take-addon-up-from
     ; Robot's arm takes object from location (not drawer)
-    :parameters (?h ?l ?c)
-    :precondition (and (HAND ?h) (is-free ?h)
-                       (LOCATION ?l) (not (is-drawer ?l))
-                       (ADDON ?c) (at ?l ?c)
+    :parameters (?r ?l ?c)
+    :precondition (and (robot ?r) (is-free ?r)
+                       (location ?l) (not (is-drawer ?l))
+                       (addonce ?c) (at ?l ?c)
                        )
-    :effect (and (not (is-free ?h)) (at ?h ?c) (not (at ?l ?c)) )
+    :effect (and (not (is-free ?r)) (at ?r ?c) (not (at ?l ?c)) )
 )
     
 (:action put-addon-down-to
     ; Robot's arm puts object to location (not drawer)
-    :parameters (?h ?l ?c)
-    :precondition (and (HAND ?h) (not (is-free ?h))
-                       (LOCATION ?l) (not (is-drawer ?l)) (not (is-stove ?l))
-                       (ADDON ?c) (at ?h ?c)
+    :parameters (?r ?l ?c)
+    :precondition (and (robot ?r) (not (is-free ?r))
+                       (location ?l) (not (is-drawer ?l)) (not (is-stove ?l))
+                       (addonce ?c) (at ?r ?c)
                        )
-    :effect (and (is-free ?h) (not (at ?h ?c)) (at ?l ?c))
+    :effect (and (is-free ?r) (not (at ?r ?c)) (at ?l ?c))
 )
 
 
-(:action take-cup-up-from
+(:action take-mug-up-from
     ; Robot's arm takes object from location (not drawer)
-    :parameters (?h ?l ?c)
-    :precondition (and (HAND ?h) (is-free ?h)
-                       (LOCATION ?l) (not (is-drawer ?l))
-                       (CUP ?c) (at ?l ?c)
+    :parameters (?r ?l ?m)
+    :precondition (and (robot ?r) (is-free ?r)
+                       (location ?l) (not (is-drawer ?l))
+                       (mug ?m) (at ?l ?m)
                        )
-    :effect (and (not (is-free ?h)) (at ?h ?c) (not (at ?l ?c)) )
+    :effect (and (not (is-free ?r)) (at ?r ?m) (not (at ?l ?m)) )
 )
     
-(:action put-cup-down-to
+(:action put-mug-down-to
     ; Robot's arm puts object to location (not drawer)
-    :parameters (?h ?l ?c)
-    :precondition (and (HAND ?h) (not (is-free ?h))
-                       (LOCATION ?l) (not (is-drawer ?l)) (not (is-stove ?l))
-                       (CUP ?c) (at ?h ?c)
+    :parameters (?r ?l ?m)
+    :precondition (and (robot ?r) (not (is-free ?r))
+                       (location ?l) (not (is-drawer ?l)) (not (is-stove ?l))
+                       (mug ?m) (at ?r ?m)
                        )
-    :effect (and (is-free ?h) (not (at ?h ?c)) (at ?l ?c))
+    :effect (and (is-free ?r) (not (at ?r ?m)) (at ?l ?m))
 )
 
 
 
 (:action take-pot-up-from
     ; Robot's arm takes object from location (not drawer)
-    :parameters (?h ?l ?c)
-    :precondition (and (HAND ?h) (is-free ?h)
-                       (LOCATION ?l) (not (is-drawer ?l))
-                       (POT ?c) (at ?l ?c)
+    :parameters (?r ?l ?p)
+    :precondition (and (robot ?r) (is-free ?r)
+                       (location ?l) (not (is-drawer ?l))
+                       (pot ?p) (at ?l ?p)
                        )
-    :effect (and (not (is-free ?h)) (at ?h ?c) (not (at ?l ?c)) )
+    :effect (and (not (is-free ?r)) (at ?r ?p) (not (at ?l ?p)) )
 )
     
 (:action put-pot-down-to
     ; Robot's arm puts object to location (not drawer)
-    :parameters (?h ?l ?c)
-    :precondition (and (HAND ?h) (not (is-free ?h))
-                       (LOCATION ?l) (not (is-drawer ?l))
-                       (POT ?c) (at ?h ?c)
+    :parameters (?r ?l ?p)
+    :precondition (and (robot ?r) (not (is-free ?r))
+                       (location ?l) (not (is-drawer ?l))
+                       (pot ?p) (at ?r ?p)
                        )
-    :effect (and (is-free ?h) (not (at ?h ?c)) (at ?l ?c))
+    :effect (and (is-free ?r) (not (at ?r ?p)) (at ?l ?p))
 )
 
 (:action open-container
     ; robot uses two hands to open the container
-    :parameters (?h1 ?h2 ?c)
-    :precondition (and (HAND ?h1) (not (is-free ?h1))
-                       (HAND ?h2) (is-free ?h2)
-                       (CONTAINER ?c) (at ?h1 ?c) (not (is-open ?c))
+    :parameters (?r ?c)
+    :precondition (and (robot ?r) (not (is-free ?r))
+                       (container ?c) (at ?r ?c) (not (is-open ?c))
     )
     :effect (and (is-open ?c))
 )
 
+
 (:action close-container
     ; robot uses two hands to close the container
-    :parameters (?h1 ?h2 ?c)
-    :precondition (and (HAND ?h1) (not (is-free ?h1))
-                       (HAND ?h2) (is-free ?h2)
-                       (CONTAINER ?c) (at ?h1 ?c) (is-open ?c)
+    :parameters (?r ?c)
+    :precondition (and (robot ?r) (not (is-free ?r))
+                       (container ?c) (at ?r ?c) (is-open ?c)
     )
     :effect (and (not (is-open ?c)))
 )
 
-(:action fill-water-jug
-    ; Robot fills water jug to have filtered water (using two hands)
-    :parameters (?h1 ?h2 ?c)
-    :precondition (and (HAND ?h1) (not (is-free ?h1))
-                       (HAND ?h2) (is-free ?h2)
-                       (CONTAINER ?c) (for-water ?c) (at ?h1 ?c) (is-open ?c) (not (has-water ?c))
+(:action fill-water-reservoir
+    ; Robot fills water reservoir to have filtered water (using two hands)
+    :parameters (?r ?c)
+    :precondition (and (robot ?r) (not (is-free ?r))
+                       (container ?c) (for-water ?c) (at ?r ?c) (is-open ?c) (not (has-water ?c))
     )
     :effect (and (has-water ?c))
 )
 
 (:action unscrew-pot
     ;robot removes the top part of the pot and puts it on the table
-    :parameters (?h1 ?h2 ?p)
-    :precondition (and (HAND ?h1) (not (is-free ?h1))
-                       (HAND ?h2) (is-free ?h2)
-                       (POT ?p) (at ?h1 ?p) (is-screwed ?p)
+    :parameters (?r ?p)
+    :precondition (and (robot ?r) (not (is-free ?r))
+                       (pot ?p) (at ?r ?p) (is-screwed ?p)
                        )
     :effect (and (not (is-screwed ?p)))
 )
 
 (:action screw-pot
     ;robot removes the top part of the pot and puts it on the table
-    :parameters (?h1 ?h2 ?p)
-    :precondition (and (HAND ?h1) (not (is-free ?h1))
-                       (HAND ?h2) (is-free ?h2)
-                       (POT ?p) (at ?h1 ?p) (not (is-screwed ?p))
+    :parameters (?r ?p)
+    :precondition (and (robot ?r) (not (is-free ?r))
+                       (pot ?p) (at ?r ?p) (not (is-screwed ?p))
                        )
     :effect (and (is-screwed ?p))
 )
