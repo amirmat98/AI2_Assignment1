@@ -85,6 +85,9 @@ To generate and execute the plan for making coffee, we use the LPG-td (Local sea
 
 ### Run via Vscode
 
-### Example Output
+You can run the planner using the lpg++ file that is located in the folder. In order to do this, you need to install 'PDDL' extension in vscode and configure this extension with lpg++ file as planning engine.
 
-The output will include a detailed plan with steps such as picking up ingredients, grinding coffee, filling the water reservoir, assembling the moka kettle, heating it, and serving the coffee.
+## Output
+
+You can see the output of the this PDDL as a plan in directory. Moreover here is the link of the `Plan report.html`.
+
