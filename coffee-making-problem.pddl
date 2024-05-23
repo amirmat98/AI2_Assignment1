@@ -7,7 +7,7 @@
     beans_jar
     coffee_mug
     
-    pot
+    kettle
     
     drawer
     closet
@@ -24,9 +24,9 @@
     
     (HAND left_h) (HAND right_h)
     (CONTAINER water_jug) (CONTAINER beans_jar) (CONTAINER coffee_mug) 
-    (POT pot)
-    (LOCATION drawer) (LOCATION table) (LOCATION grinder) (LOCATION stove) 
-    (LOCATION closet)
+    (KETTLE kettle)
+    (PLACE drawer) (PLACE table) (PLACE grinder) (PLACE stove) 
+    (PLACE closet)
     (ADDON sugar)
     (CUP cup)
 
@@ -34,7 +34,7 @@
     (is-free left_h)
     (is-free right_h)
     
-    ;Locations
+    ;Places
     (is-drawer closet)
     (is-closed closet)
     (is-drawer drawer)
@@ -60,10 +60,10 @@
     (is-empty cup)
     (at closet cup)
 
-    ;pot
-    (at drawer pot)
-    (has-filter pot)
-    (is-screwed pot)    
+    ;kettle
+    (at drawer kettle)
+    (has-filter kettle)
+    (is-screwed kettle)    
 )
 
 ; Idea behind thid goal is to have kind-of-master-chef way of doing that.

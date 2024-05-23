@@ -20,30 +20,30 @@ This project focuses on AR-1's capability to make coffee using an Italian moka m
    - Skills: manipulate objects, operate grinder.
 
 3. **Fill Water Reservoir:**
-   - Unscrew the top part of the moka pot and fill the bottom reservoir with filtered water.
-   - Skills: manipulate moka pot, pour water.
+   - Unscrew the top part of the moka kettle and fill the bottom reservoir with filtered water.
+   - Skills: manipulate moka kettle, pour water.
 
 4. **Insert Filter and Coffee:**
-   - Place the filter basket into the bottom chamber of the moka pot, add ground coffee, distribute it evenly, and level it off with a tool.
+   - Place the filter basket into the bottom chamber of the moka kettle, add ground coffee, distribute it evenly, and level it off with a tool.
    - Skills: extract and level ground coffee, fill filter basket.
 
 5. **Assemble Moka Pot and Heat:**
-   - Screw the top portion of the moka pot onto the bottom reservoir and place the moka pot on the stovetop burner set to medium heat.
-   - Skills: manipulate moka pot, operate stovetop burner.
+   - Screw the top portion of the moka kettle onto the bottom reservoir and place the moka kettle on the stovetop burner set to medium heat.
+   - Skills: manipulate moka kettle, operate stovetop burner.
 
 6. **Serve:**
-   - Unscrew the top portion of the moka pot and pour the freshly brewed coffee into cups or mugs.
-   - Skills: manipulate moka pot, pour liquids.
+   - Unscrew the top portion of the moka kettle and pour the freshly brewed coffee into cups or mugs.
+   - Skills: manipulate moka kettle, pour liquids.
 
 ## PDDL Domain and Problem
 
 ### Domain: `domain.pddl`
 
-The `domain.pddl` file defines the actions that AR-1 can perform, the objects it can interact with, and the preconditions and effects of each action. The actions include picking up items, grinding coffee, filling the water reservoir, inserting the filter and coffee, assembling the moka pot, heating it, and serving the coffee.
+The `domain.pddl` file defines the actions that AR-1 can perform, the objects it can interact with, and the preconditions and effects of each action. The actions include picking up items, grinding coffee, filling the water reservoir, inserting the filter and coffee, assembling the moka kettle, heating it, and serving the coffee.
 
 ### Problem: `problem.pddl`
 
-The `problem.pddl` file specifies the initial state of the kitchen, the location of ingredients, and the goal state where the coffee is prepared and served. This file defines a specific scenario for AR-1 to execute, ensuring that all necessary steps are performed in sequence.
+The `problem.pddl` file specifies the initial state of the kitchen, the place of ingredients, and the goal state where the coffee is prepared and served. This file defines a specific scenario for AR-1 to execute, ensuring that all necessary steps are performed in sequence.
 
 ## Using the LPG-td Planner
 
@@ -68,4 +68,4 @@ To generate and execute the plan for making coffee, we use the LPG-td (Local sea
 
 ### Example Output
 
-The output will include a detailed plan with steps such as picking up ingredients, grinding coffee, filling the water reservoir, assembling the moka pot, heating it, and serving the coffee.
+The output will include a detailed plan with steps such as picking up ingredients, grinding coffee, filling the water reservoir, assembling the moka kettle, heating it, and serving the coffee.
