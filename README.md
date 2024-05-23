@@ -1,5 +1,22 @@
 # README: AI Course Assignment - Coffee Making - Amirmahdi Matin 5884715
-## This the Backup Branch
+# Description
+[Università degli studi di Genova](https://unige.it/en/ "University of Genova")
+
+[ARTIFICIAL INTELLIGENCE FOR ROBOTICS II](https://corsi.unige.it/en/off.f/2023/ins/66544)
+
+Professor: [Fulvio Mastrogiovanni](fulvio.mastrogiovanni@unige.it "Fulvio Mastrogiovanni")
+
+Student: [AmirMahdi Matin](https://github.com/amirmat98 "AmirMahdi Matin")  - 5884715 - Robotics Engineering
+
+## This the test Branch
+
+# Table of Content
+- [Context](#Context)
+- [Scenario](#Scenario)
+   - [Steps for Making Coffee](#steps-for-making-coffee)
+- [PDDL Domain and Problem](#pddl-domain-and-problem)
+   - [Domain](#Domain)
+   - [Problem](#Problem)
 
 ## Context
 
@@ -49,7 +66,7 @@ The `problem.pddl` file specifies the initial state of the kitchen, the place of
 
 To generate and execute the plan for making coffee, we use the LPG-td (Local search for Planning Graphs - temporary goals) planner. Here’s how you can run the planner with the provided PDDL files.
 
-### Steps to Run LPG-td
+### Steps to Run LPG-td via Terminal
 
 1. **Download and Install LPG-td:**
    - You can download the LPG-td planner from [LPG-td official site](http://lpg.unibs.it/).
@@ -65,6 +82,8 @@ To generate and execute the plan for making coffee, we use the LPG-td (Local sea
      ./lpg-td -o domain.pddl -f problem.pddl
      ```
    - The planner will output a sequence of actions that AR-1 can follow to make coffee.
+
+### Run via Vscode
 
 ### Example Output
 
