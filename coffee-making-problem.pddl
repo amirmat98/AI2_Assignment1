@@ -1,22 +1,28 @@
 (define (problem coffee-maker) (:domain coffee-maker-assistant)
-(:objects 
+(:objects
+    ; grips
     left_g
     right_g
     
+    ; containers
     water_jug
     beans_jar
     coffee_mug
     
+    ; kettle
     kettle
     
+    ; place
     cabinet
     closet
     table
     grinder
     stove
     
+    ; options
     sugar
     
+    ; mug
     mug
 )
 

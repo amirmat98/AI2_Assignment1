@@ -17,6 +17,10 @@ Student: [AmirMahdi Matin](https://github.com/amirmat98 "AmirMahdi Matin")  - 58
 - [PDDL Domain and Problem](#pddl-domain-and-problem)
    - [Domain](#Domain)
    - [Problem](#Problem)
+- [Running](#Running)
+   - [Running via Terminal](#Running-via-Terminal)
+   - [Running via Vscode](#Running-via-Vscode)
+- [Output](#Output)
 
 ## Context
 
@@ -62,11 +66,11 @@ The `domain.pddl` file defines the actions that AR-1 can perform, the objects it
 
 The `problem.pddl` file specifies the initial state of the kitchen, the place of ingredients, and the goal state where the coffee is prepared and served. This file defines a specific scenario for AR-1 to execute, ensuring that all necessary steps are performed in sequence.
 
-## Using the LPG-td Planner
+## Running
 
 To generate and execute the plan for making coffee, we use the LPG-td (Local search for Planning Graphs - temporary goals) planner. Here’s how you can run the planner with the provided PDDL files.
 
-### Steps to Run LPG-td via Terminal
+### Run via Terminal
 
 1. **Download and Install LPG-td:**
    - You can download the LPG-td planner from [LPG-td official site](http://lpg.unibs.it/).
@@ -89,5 +93,5 @@ You can run the planner using the lpg++ file that is located in the folder. In o
 
 ## Output
 
-You can see the output of the this PDDL as a plan in directory. Moreover here is the link of the [Plan report.html](#https://github.com/amirmat98/AI2_Assignment1/blob/main/Plan%20report.html)
+You can see the output of the this PDDL as a plan in directory. Moreover here is the link of the [Plan report.html](https://htmlpreview.github.io/?https://github.com/amirmat98/AI2_Assignment1/blob/main/Plan%20report.html)
 
