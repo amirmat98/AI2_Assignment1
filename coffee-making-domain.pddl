@@ -3,7 +3,8 @@
 (:requirements 
     :strips
     :negative-preconditions
- )
+)
+
 (:predicates
     (GRIP ?g) ;robot grip
     (PLACE ?p)   ;places (cabinets, tables etc)
