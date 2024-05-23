@@ -89,5 +89,5 @@ You can run the planner using the lpg++ file that is located in the folder. In o
 
 ## Output
 
-You can see the output of the this PDDL as a plan in directory. Moreover here is the link of the `Plan report.html`.
+You can see the output of the this PDDL as a plan in directory. Moreover here is the link of the [Plan report.html](#https://github.com/amirmat98/AI2_Assignment1/blob/main/Plan%20report.html)
 
