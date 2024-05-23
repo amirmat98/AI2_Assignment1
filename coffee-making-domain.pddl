@@ -48,7 +48,7 @@
     (coffee-is-distributed-evenly ?k)   ;Whether cofffee was placed evenly
 
     ;mug predicates
-    (has-flavor ?c ?o)       ; if coffeee has specified option eg. sugar, milk -bleh
+    (has-flavor ?m ?o)       ; if coffeee has specified option eg. sugar, milk -bleh
 )
 
 ; action for cabinets
