@@ -1,7 +1,12 @@
+;PDDL Domain Definition for Coffee Making Robot
+
+; Define the domain
 (define (domain coffee-maker-assistant)
 
+; requirements for the domain are defined in the following order
 (:requirements 
     :strips
+    :typing
     :negative-preconditions
 )
 
