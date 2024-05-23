@@ -13,7 +13,7 @@ This project focuses on AR-1's capability to make coffee using an Italian moka m
 
 1. **Prepare Ingredients:** 
    - Gather coffee beans or ground coffee, filtered water, and optionally sugar or milk. The ingredients are located in various parts of the kitchen.
-   - Skills: pick-up, put-down, open and close drawers/closets, open and close containers, operate kitchen appliances.
+   - Skills: pick-up, put-down, open and close cabinets/closets, open and close containers, operate kitchen appliances.
 
 2. **Grind Coffee (if using coffee beans):**
    - Pour coffee beans into the grinder and operate the grinder.
@@ -32,7 +32,7 @@ This project focuses on AR-1's capability to make coffee using an Italian moka m
    - Skills: manipulate moka kettle, operate stovetop burner.
 
 6. **Serve:**
-   - Unscrew the top portion of the moka kettle and pour the freshly brewed coffee into cups or mugs.
+   - Unscrew the top portion of the moka kettle and pour the freshly brewed coffee into mugs or mugs.
    - Skills: manipulate moka kettle, pour liquids.
 
 ## PDDL Domain and Problem
