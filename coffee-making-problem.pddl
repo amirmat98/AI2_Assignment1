@@ -1,4 +1,4 @@
-(define (problem coffee_maker) (:domain coffee-maker-assistant)
+(define (problem coffee-maker) (:domain coffee-maker-assistant)
 (:objects 
     left_h
     right_h
@@ -7,9 +7,9 @@
     beans_jar
     coffee_mug
     
-    kettle
+    pot
     
-    cabinet
+    drawer
     closet
     table
     grinder
@@ -17,70 +17,70 @@
     
     sugar
     
-    mug
+    cup
 )
 
 (:init
     
-    (GRIP left_h) (GRIP right_h)
-    (HOLDER water_jug) (HOLDER beans_jar) (HOLDER coffee_mug) 
-    (KETTLE kettle)
-    (PLACE cabinet) (PLACE table) (PLACE grinder) (PLACE stove) 
-    (PLACE closet)
-    (ENHANCER sugar)
-    (MUG mug)
+    (HAND left_h) (HAND right_h)
+    (CONTAINER water_jug) (CONTAINER beans_jar) (CONTAINER coffee_mug) 
+    (POT pot)
+    (LOCATION drawer) (LOCATION table) (LOCATION grinder) (LOCATION stove) 
+    (LOCATION closet)
+    (ADDON sugar)
+    (CUP cup)
 
     ; robot 
     (is-free left_h)
     (is-free right_h)
     
-    ;PLACEs
-    (is-cabinet closet)
+    ;Locations
+    (is-drawer closet)
     (is-closed closet)
-    (is-cabinet cabinet)
-    (is-closed cabinet)
+    (is-drawer drawer)
+    (is-closed drawer)
     (is-table table)
     (is-grinder grinder)
     (is-stove stove)
     
     ; water jug
     (for-water water_jug)
-    (at cabinet water_jug)
+    (at drawer water_jug)
     
-    ; beans HOLDER
+    ; beans CONTAINER
     (has-beans beans_jar)
-    (at cabinet beans_jar)
-    (at cabinet coffee_mug)
+    (at drawer beans_jar)
+    (at drawer coffee_mug)
     (is-empty coffee_mug)
     
     ;addons
     (at table sugar)
 
-    ;mugs
-    (is-empty mug)
-    (at closet mug)
+    ;cups
+    (is-empty cup)
+    (at closet cup)
 
-    ;kettle
-    (at cabinet kettle)
-    (has-filter kettle)
-    (is-screwed kettle)    
+    ;pot
+    (at drawer pot)
+    (has-filter pot)
+    (is-screwed pot)    
 )
 
 ; Idea behind thid goal is to have kind-of-master-chef way of doing that.
-; You finish job, nothing in your GRIPs, your environment is tidied up
+; You finish job, nothing in your hands, your environment is tidied up
 ; Main task was to prepare coffee with sugar.
 (:goal (and 
-            (has-coffee mug) (has-flavor mug sugar)
+            (has-coffee cup) (has-flavor cup sugar)
             
-            (at cabinet coffee_mug)
-            (at cabinet beans_jar)
+            (at drawer coffee_mug)
+            (at drawer beans_jar)
             (at table water_jug)
             (at table sugar)
             
             (is-free right_h)
             (is-free left_h)
             
-            (is-closed cabinet)
+            (is-closed drawer)
             (is-closed closet)
 )
 )
